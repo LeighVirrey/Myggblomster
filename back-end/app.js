@@ -6,17 +6,19 @@ const bodyParser = require('body-parser');
 const profanity = require('@2toad/profanity');
 
 // Intialize the app
+const { DAL } = require('./DAL/mongo-dal')
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({origin: '*'}));
 app.use(bodyParser.json());
 app.use(express.json());
 
 
-const { DAL } = require('./DAL/mongo-dal')
 // Add app.get functions below
-
+app.get('/', (req, res) => {
+    res.send('MOVIE REVIEWS RAAAH');
+});
 // Add app.port functions below
 //reviews and ratings
 app.post('/rarCreate', (req, res) => {
