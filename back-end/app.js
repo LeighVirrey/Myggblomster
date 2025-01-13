@@ -19,8 +19,8 @@ const { DAL } = require('./DAL/mongo-dal')
 // Add app.port functions below
 
 
-// Sets local host to port 3000
-const PORT = process.env.PORT || 3000;
+// Sets local host to port 9000
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:{PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
