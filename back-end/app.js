@@ -9,21 +9,19 @@ const profanity = require('@2toad/profanity');
 const app = express();
 
 // Middleware
-app.use(cors(origin = '*'));
+app.use(cors({origin: '*'}));
 app.use(bodyParser.json());
 app.use(express.json());
 
 // Add app.get functions below
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to the Movie API');
 });
 
 
-
-
 //reviews and ratings
-app.post('reviews-and-rating', (req, res) => {
+app.post('/rarCreate', (req, res) => {
     movieID = req.body.movieID;
     rating = req.body.rating;
     review = profanity.censor(req.body.review);
@@ -32,20 +30,20 @@ app.post('reviews-and-rating', (req, res) => {
     res.json({message: "Review and rating added successfully", rating: rating, review: review});
 });
 
-app.get('reviews-and-rating/:id', (req, res) => {
+app.get('/rar/:id', (req, res) => {
     id = req.params.id;
     //DAL function to get review and rating
     ratingAndReviews = [];
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
-app.delete('reviews-and-rating/:id', (req, res) => {
+app.delete('/rarDelete/:id', (req, res) => {
     id = req.params.id;
     //DAL function to delete review and rating
     res.json({message: "Review and rating deleted successfully"});
 });
 
-app.put('reviews-and-rating/:id', (req, res) => {
+app.put('/rarUpdate/:id', (req, res) => {
     id = req.params.id;
     rating = req.body.rating;
     review = profanity.censor(req.body.review);
@@ -54,6 +52,7 @@ app.put('reviews-and-rating/:id', (req, res) => {
 });
 
 // Sets local host to port 3000
-app.listen(3000, () => {
-    console.log(`Server is running on http://localhost:3000`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
