@@ -12,6 +12,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+
+const { DAL } = require('./DAL/mongo-dal')
 // Add app.get functions below
 
 // Add app.port functions below
