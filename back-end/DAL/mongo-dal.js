@@ -36,9 +36,9 @@ exports.DAL = {
 
 
     },
-    createRAR: async function (key, data) {
+    createRAR: async function ( data) {
         try {
-            console.log("CREATE REVIEW DATA: ", key, data)
+            console.log("CREATE REVIEW DATA: ", data)
             const client = new MongoClient(uri)
             const database = client.db(db)
             const RARCollection = database.collection(RARcollection)
@@ -56,9 +56,9 @@ exports.DAL = {
             await client.close()
         }
     },
-    updateReview: async function (key, data, id) {
+    updateRAR: async function ( data, id) {
         try {
-            console.log("Update Review DATA: ", key, data, id)
+            console.log("Update Review DATA: ",  data, id)
             const client = new MongoClient(uri)
             const database = client.db(db)
             const RARCollection = database.collection(RARcollection)

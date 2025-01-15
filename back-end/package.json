@@ -10,11 +10,19 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+<<<<<<< HEAD
     "@2toad/profanity": "^3.1.1",
+=======
+>>>>>>> a09c7a860ee2ee3bca2ea06936ccf38e67351855
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+<<<<<<< HEAD
     "mongodb": "^6.12.0"
+=======
+    "mongo": "^0.1.0",
+    "nodemon": "^3.1.9"
+>>>>>>> a09c7a860ee2ee3bca2ea06936ccf38e67351855
   }
 }
