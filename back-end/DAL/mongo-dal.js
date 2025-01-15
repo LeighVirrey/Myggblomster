@@ -28,7 +28,6 @@ exports.DAL = {
             const RARCollection = database.collection(RARcollection)
             const query = { _id: ObjectId.createFromHexString(id) }
             const RAR = await RARCollection.findOne(query)
-
             return RAR
         } finally {
             await client.close()

@@ -22,32 +22,45 @@ app.get('/', (req, res) => {
 // Add app.port functions below
 //reviews and ratings
 app.post('/rarCreate', (req, res) => {
-    movieID = req.body.movieID;
+    movieId = req.body.movieId;
+    userId = req.body.userId;
     rating = req.body.rating;
     review = profanity.censor(req.body.review);
-
-    //DAL function to add review and rating
+    const data = {
+        movieId: movieId,
+        userId: userId,
+        rating: rating,
+        review: review
+    }
+    DAL.createRAR(data);
     res.json({message: "Review and rating added successfully", rating: rating, review: review});
 });
 
 app.get('/rar/:id', (req, res) => {
     id = req.params.id;
-    //DAL function to get review and rating
-    ratingAndReviews = [];
+    ratingAndReviews = DAL.getRAR(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
 app.delete('/rarDelete/:id', (req, res) => {
     id = req.params.id;
-    //DAL function to delete review and rating
+    DAL.deleteRAR(id);
     res.json({message: "Review and rating deleted successfully"});
 });
 
 app.put('/rarUpdate/:id', (req, res) => {
     id = req.params.id;
+    movieId = req.body.movieId;
+    userId = req.body.userId;
     rating = req.body.rating;
     review = profanity.censor(req.body.review);
-    //DAL function to update review and rating
+    const data = {
+        movieId: movieId,
+        userId: userId,
+        rating: rating,
+        review: review
+    }
+    DAL.updateRAR(data, id);
     res.json({message: "Review and rating updated successfully", rating: rating, review: review});
 });
 
