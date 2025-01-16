@@ -22,11 +22,19 @@ app.get('/', (req, res) => {
 // Add app.port functions below
 
 //users
+app.get('/users', (req, res) => {
+
+});
+
 app.post('/regiser', (req, res) => {
     
 });
 
 app.post('/login', (req, res) => {
+
+});
+
+app.delete('/delete', (req, res) => {
 
 });
 
