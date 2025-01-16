@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
     res.send('MOVIE REVIEWS RAAAH');
 });
 // Add app.port functions below
+//users
+
+
+
+
 //reviews and ratings
 app.post('/rarCreate', (req, res) => {
     movieId = req.body.movieId;
