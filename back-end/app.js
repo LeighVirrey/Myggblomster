@@ -20,10 +20,15 @@ app.get('/', (req, res) => {
     res.send('MOVIE REVIEWS RAAAH');
 });
 // Add app.port functions below
+
 //users
+app.post('/regiser', (req, res) => {
+    
+});
 
+app.post('/login', (req, res) => {
 
-
+});
 
 //reviews and ratings
 app.post('/rarCreate', (req, res) => {
