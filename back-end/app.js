@@ -26,9 +26,19 @@ app.get('/users', (req, res) => {
 
 });
 
-app.post('/regiser', (req, res) => {
-    
+app.post('/register', (req, res) => {
+    email = req.body.email;
+    password = req.body.password;
+    isAdmin = req.body.isAdmin
+    registerData = {
+        email: email,
+        password: bycrypt.hash(password, 10),
+        isAdmin: isAdmin
+    }
+    DAL.createRAR(registerData)
+    res.json({message: "User added successfully", email, password, isAdmin});
 });
+ 
 
 app.post('/login', (req, res) => {
 
