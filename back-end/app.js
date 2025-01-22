@@ -3,7 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const profanity = require('@2toad/profanity');
+const {profanity, CensorType} = require('@2toad/profanity');
 
 // Intialize the app
 const { DAL } = require('./DAL/mongo-dal')
@@ -47,16 +47,29 @@ app.post('/rarCreate', (req, res) => {
     const data = {
         movieId: movieId,
         userId: userId,
-        rating: rating,
-        review: review
+        starRating: rating,
+        movieReview: review
     }
     DAL.createRAR(data);
     res.json({message: "Review and rating added successfully", rating: rating, review: review});
 });
 
-app.get('/rar/:id', (req, res) => {
+app.get('/rarId/:id', (req, res) => {
     id = req.params.id;
     ratingAndReviews = DAL.getRAR(id);
+    res.json({ratingAndReviews: ratingAndReviews});
+});
+
+
+app.get('/rarMovie/:id', (req, res) => {
+    id = req.params.id;
+    ratingAndReviews = DAL.getMovieByMovieId(id);
+    res.json({ratingAndReviews: ratingAndReviews});
+});
+
+app.get('/rarUser/:id', (req, res) => {
+    id = req.params.id;
+    ratingAndReviews = DAL.getRARById(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
@@ -75,8 +88,8 @@ app.put('/rarUpdate/:id', (req, res) => {
     const data = {
         movieId: movieId,
         userId: userId,
-        rating: rating,
-        review: review
+        starRating: rating,
+        movieReview: review
     }
     DAL.updateRAR(data, id);
     res.json({message: "Review and rating updated successfully", rating: rating, review: review});

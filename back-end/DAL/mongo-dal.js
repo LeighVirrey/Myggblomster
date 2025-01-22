@@ -43,7 +43,7 @@ exports.DAL = {
             const RARCollection = database.collection(RARcollection)
             const Data = {
                     movieId: data.movieId,
-                    userId: data.userIDd,
+                    userId: data.userId,
                     starRating: data.starRating,
                     movieReview: data.movieReview                   
                 }
