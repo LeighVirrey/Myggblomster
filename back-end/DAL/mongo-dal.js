@@ -35,7 +35,9 @@ exports.DAL = {
 
 
     },
-    createRAR: async function ( data) {
+
+
+    createRAR: async function (data) {
         try {
             console.log("CREATE REVIEW DATA: ", data)
             const client = new MongoClient(uri)
@@ -43,7 +45,7 @@ exports.DAL = {
             const RARCollection = database.collection(RARcollection)
             const Data = {
                     movieId: data.movieId,
-                    userId: data.userIDd,
+                    userId: data.userId,
                     starRating: data.starRating,
                     movieReview: data.movieReview                   
                 }
@@ -118,6 +120,20 @@ exports.DAL = {
             const query = { userId: userId }
             const user = await usersCollection.findOne(query)
             console.log('DAL getUserByUserId: ', user)
+            return user
+        } finally {
+            await client.close()
+        }
+    },
+    getReviewsByUserId: async function (userId) {
+        const client = new MongoClient(uri)
+        console.log("Get Reviews By UserID: ", userId)
+        try {
+            const database = client.db(db)
+            const reviewsCollection = database.collection(RARcollection)
+            const query = { userId: userId }
+            const user = await reviewsCollection.findOne(query)
+            console.log('DAL getReviewsByUserId: ', user)
             return user
         } finally {
             await client.close()
