@@ -27,7 +27,16 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/regiser', (req, res) => {
-    
+    email = req.body.email;
+    password = req.body.password;
+    isAdmin = req.body.isAdmin
+    registerData = {
+        email: email,
+        password: bycrypt.hash(password, 10),
+        isAdmin: isAdmin
+    }
+    DAL.createRAR(registerData)
+    res.json({message: "User added successfully", email, password, isAdmin});
 });
 
 app.post('/login', (req, res) => {
@@ -59,7 +68,6 @@ app.get('/rarId/:id', (req, res) => {
     ratingAndReviews = DAL.getRAR(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
-
 
 app.get('/rarMovie/:id', (req, res) => {
     id = req.params.id;

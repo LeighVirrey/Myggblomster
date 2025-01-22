@@ -132,7 +132,8 @@ exports.DAL = {
             const database = client.db(db)
             const reviewsCollection = database.collection(RARcollection)
             const query = { userId: userId }
-            const user = await reviewsCollection.findOne(query)
+            
+            const user = await reviewsCollection.find(query)
             console.log('DAL getReviewsByUserId: ', user)
             return user
         } finally {
@@ -160,7 +161,7 @@ exports.DAL = {
             const database = client.db(db)
             const RARCollection = database.collection(RARcollection)
             const query = { movieId: movieId }
-            const movie = await RARCollection.findOne(query)
+            const movie = await RARCollection.find(query)
             console.log('DAL getMovieByMovieId: ', movie)
             return movie
         } finally {
