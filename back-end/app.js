@@ -54,22 +54,22 @@ app.post('/rarCreate', (req, res) => {
     res.json({message: "Review and rating added successfully", rating: rating, review: review});
 });
 
-app.get('/rarId/:id', (req, res) => {
+app.get('/rarId/:id', async (req, res) => {
     id = req.params.id;
-    ratingAndReviews = DAL.getRAR(id);
+    ratingAndReviews = await DAL.getRAR(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
 
-app.get('/rarMovie/:id', (req, res) => {
+app.get('/rarMovie/:id', async (req, res) => {
     id = req.params.id;
-    ratingAndReviews = DAL.getMovieByMovieId(id);
+    ratingAndReviews = await DAL.getMovieByMovieId(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
-app.get('/rarUser/:id', (req, res) => {
+app.get('/rarUser/:id', async (req, res) => {
     id = req.params.id;
-    ratingAndReviews = DAL.getRARById(id);
+    ratingAndReviews = await DAL.getReviewsByUserId(id);
     res.json({ratingAndReviews: ratingAndReviews});
 });
 
@@ -79,7 +79,7 @@ app.delete('/rarDelete/:id', (req, res) => {
     res.json({message: "Review and rating deleted successfully"});
 });
 
-app.put('/rarUpdate/:id', (req, res) => {
+app.put('/rarUpdate/:id', async (req, res) => {
     id = req.params.id;
     movieId = req.body.movieId;
     userId = req.body.userId;
