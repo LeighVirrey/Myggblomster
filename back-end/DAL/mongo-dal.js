@@ -79,23 +79,36 @@ exports.DAL = {
             await client.close()
         }
     },
-    createUser: async function (email, password, isAdmin) {
-        console.log('DAL Create User: ', email, password, isAdmin)
+    createUser: async function (data) {
+        console.log('DAL Create User: ', data)
         const client = new MongoClient(uri)
         try {
             const database = client.db(db)
             const usersCollection = database.collection(usersCollName)
-            let newUser = {
-                email: email,
-                password: password,
-                isAdmin: isAdmin
+            const newUser = {
+                email: data.email,
+                password: data.password,
+                isAdmin: data.isAdmin
             }
             const result = await usersCollection.insertOne(newUser)
             return result
         } finally {
             await client.close()
         }
-            console.log("Create user: ", result)
+    },
+    deleteUser: async function (id) {
+        console.log("Delete User with Id: ", id)
+        try {
+            const client = new MongoClient(uri)
+            const database = client.db(db)
+            const usersCollection = database.collection(usersCollName)
+            const query = { _id: ObjectId.createFromHexString(id) }
+            const user = await usersCollection.deleteOne(query)
+            console.log(user)
+            return user
+        } finally {
+            await client.close()
+        }
     },
     deleteRAR: async function (id) {
         console.log("Delete Recipe with Id: ", id)

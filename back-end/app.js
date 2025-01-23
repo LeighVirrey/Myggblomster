@@ -15,37 +15,51 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 
-// Add app.get functions below
 app.get('/', (req, res) => {
     res.send('MOVIE REVIEWS RAAAH');
 });
-// Add app.port functions below
 
-//users
 app.get('/users', (req, res) => {
 
 });
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     email = req.body.email;
     password = req.body.password;
     isAdmin = req.body.isAdmin
-    registerData = {
+    let registerData = {
         email: email,
-        password: bycrypt.hash(password, 10),
+        password: await bcrypt.hash(password, 10),
         isAdmin: isAdmin
     }
-    DAL.createRAR(registerData)
-    res.json({message: "User added successfully", email, password, isAdmin});
+    let user = DAL.createUser(registerData)
+    res.json({message: "User added successfully", user: user});
 });
  
 
 app.post('/login', (req, res) => {
+    email = req.body.email;
+    password = req.body.password;
+    DAL.getUserByEmail(email).then((user) => {
+        if (user) {
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (result) {
+                    res.json({message: "Login successful", user: user, success: true});
+                } else {
+                    res.json({message: "Login failed", success: false});
+                }
+            });
+        } else {
+            res.json({message: "Login failed"});
+        }
+    });
 
 });
 
-app.delete('/delete', (req, res) => {
-
+app.delete('/delete/:id', (req, res) => {
+    id = req.params.id;
+    DAL.deleteUser(id);
+    res.json({message: "User deleted successfully"});
 });
 
 //reviews and ratings
