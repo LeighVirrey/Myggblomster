@@ -96,6 +96,18 @@ exports.DAL = {
             await client.close()
         }
     },
+    getUsers: async function () {
+        const client = new MongoClient(uri)
+        try {
+            const database = client.db(db)
+            const usersCollection = database.collection(usersCollName)
+            const query = {}
+            const users = await usersCollection.find(query).toArray()
+            return users
+        } finally {
+            await client.close()
+        }
+    },
     deleteUser: async function (id) {
         console.log("Delete User with Id: ", id)
         try {
@@ -130,7 +142,7 @@ exports.DAL = {
         try {
             const database = client.db(db)
             const usersCollection = database.collection(usersCollName)
-            let query = { userId: userId }
+            let query = { _id: ObjectId.createFromHexString(userId) }
             const user = await usersCollection.findOne(query)
             console.log('DAL getUserByUserId: ', user)
             return user

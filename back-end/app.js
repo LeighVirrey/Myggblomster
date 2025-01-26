@@ -19,8 +19,15 @@ app.get('/', (req, res) => {
     res.send('MOVIE REVIEWS RAAAH');
 });
 
-app.get('/users', (req, res) => {
+app.get('/users', async (req, res) => {
+    let users = await DAL.getUsers();
+    res.json({users: users});
+});
 
+app.get('/user/:id', async (req, res) => {
+    id = req.params.id;
+    let user = await DAL.getUserByUserId(id);
+    res.json({user: user});
 });
 
 app.post('/register', async (req, res) => {
