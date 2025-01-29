@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 // heres the keys and stuff
 //api read access
@@ -7,13 +7,10 @@ import { useParams } from 'react-router-dom';
 //api key
 //80ff9aff7ec44bb8644c249abba9fc74
 
-const MovieDetails = ({ movies }) => {
+const MovieDetails = () => {
     const { id } = useParams();
     //idk get it, haven't seen the api yet
 
-    if (!movie) {
-        return <div>Movie not found</div>;
-    }
 
     return (
         <div>
