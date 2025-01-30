@@ -33,6 +33,10 @@ const MovieList = () => {
               .catch(err => console.error(err));
     }, []);
 
+    function redirectDetails(id) {
+        window.location.href = `/movies/${id}`;
+    }
+
     return (
         <div>
             <h1>Movie List</h1>
@@ -40,7 +44,7 @@ const MovieList = () => {
                 {
                     movies && movies.length > 0 ? 
                     movies.map(movie => (
-                        <li>
+                        <li onClick={(e) => {redirectDetails(movie.id)}}>
                             <img src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} alt={movie.title} />
                             <h2>{movie.original_title}</h2>
                             <p>{movie.overview}</p>
