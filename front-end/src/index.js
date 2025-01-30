@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MovieList from './components/movies/movie-list/movie-list';
 import MovieDetails from './components/movies/movie-details/movie-details';
+import UserPage from './components/profile/UsersPage';
 const BrowserRouter = createBrowserRouter([
   {
     path : '/',
@@ -19,7 +20,10 @@ const BrowserRouter = createBrowserRouter([
     path : '/movies/:id',
     element : <MovieDetails />
   },
-  //add the rest idk what files were changed
+  {
+    path : '/users',
+    element : <UserPage />
+  }
 ]);
 
 
