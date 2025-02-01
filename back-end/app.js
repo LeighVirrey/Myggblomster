@@ -25,7 +25,7 @@ app.get('/users', async (req, res) => {
 });
 
 app.get('/user/:id', async (req, res) => {
-    id = req.params.id;
+    id = req.params.id; 
     let user = await DAL.getUserByUserId(id);
     res.json({user: user});
 });
@@ -33,14 +33,14 @@ app.get('/user/:id', async (req, res) => {
 app.post('/register', async (req, res) => {
     email = req.body.email;
     password = req.body.password;
-    isAdmin = req.body.isAdmin
+    isAdmin = req.body.isAdmin;
     let registerData = {
         email: email,
         password: await bcrypt.hash(password, 10),
         isAdmin: isAdmin
     }
     let user = DAL.createUser(registerData)
-    res.json({message: "User added successfully", user: user});
+    res.json({message: "User added successfully", user: registerData});
 });
  
 
