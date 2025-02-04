@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const {profanity, CensorType} = require('@2toad/profanity');
 
 // Intialize the app
-const { DAL } = require('./DAL/mongo-dal')
+// const { DAL } = require('./DAL/mongo-dal') old DAL
+const { DAL } = require('./DAL/mssqlDal')
 const app = express();
 
 // Middleware
