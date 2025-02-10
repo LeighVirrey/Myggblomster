@@ -8,6 +8,8 @@ import MovieList from './components/movies/movie-list/movie-list';
 import MovieDetails from './components/movies/movie-details/movie-details';
 import UserPage from './components/profile/UsersPage';
 import Register from './components/register/register'
+import Login from './components/login/login';
+import UserProfile from './components/userProfile/userProfile'
 const BrowserRouter = createBrowserRouter([
   {
     path : '/',
@@ -28,6 +30,14 @@ const BrowserRouter = createBrowserRouter([
   {
     path : '/register',
     element : <Register />
+  },
+  {
+    path : '/login',
+    element : <Login />
+  },
+  {
+    path : '/userProfile/:id',
+    element : <UserProfile />
   }
 ]);
 

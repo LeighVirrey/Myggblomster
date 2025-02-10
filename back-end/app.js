@@ -11,7 +11,11 @@ const { DAL } = require('./DAL/mssqlDal')
 const app = express();
 
 // Middleware
-app.use(cors({origin: '*'}));
+
+app.use(cors({
+    origin: 'http://localhost:3000', // Match your frontend
+    credentials: true, // Allow credentials (cookies, authentication headers)
+}));
 app.use(bodyParser.json());
 app.use(express.json());
 
