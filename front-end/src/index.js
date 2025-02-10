@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MovieList from './components/movies/movie-list/movie-list';
 import MovieDetails from './components/movies/movie-details/movie-details';
 import UserPage from './components/profile/UsersPage';
+import Register from './components/register/register'
 const BrowserRouter = createBrowserRouter([
   {
     path : '/',
@@ -23,6 +24,10 @@ const BrowserRouter = createBrowserRouter([
   {
     path : '/users',
     element : <UserPage />
+  },
+  {
+    path : '/register',
+    element : <Register />
   }
 ]);
 
