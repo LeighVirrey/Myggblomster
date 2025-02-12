@@ -45,10 +45,12 @@ const Login = () => {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
-                    "Access-Control-Allow-Credentials": 'true'
+                    "Access-Control-Allow-Credentials": 'true',
+                    // "Access-Control-Allow-Origin": '*',
+                    // "strict-origin-when-cross-origin": 'origin'
                 },
                 body: JSON.stringify(theBody),
-                credentials: 'include'
+                // credentials: 'include'
             }
             console.log("FETCH OPTIONS: ", fetchOptions)
 
