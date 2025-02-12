@@ -13,10 +13,6 @@ import UserProfile from './components/userProfile/userProfile'
 const BrowserRouter = createBrowserRouter([
   {
     path : '/',
-    element : <App />
-  },
-  {
-    path : '/movies',
     element : <MovieList />
   },
   {
