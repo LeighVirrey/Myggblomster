@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 // heres the keys and stuff
 //api read access

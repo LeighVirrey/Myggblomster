@@ -1,6 +1,7 @@
 import React, { use } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 // heres the keys and stuff
 //api read access
@@ -11,6 +12,9 @@ import { useEffect, useState } from 'react';
 const MovieDetails = () => {
     const [movie, setMovie] = useState({});
     const { id } = useParams();
+    const [review, setReview] = useState("");
+    const [rating, setRating] = useState(0);
+    const [rar, setRAR] = useState({});
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -19,6 +23,41 @@ const MovieDetails = () => {
           .then(json => setMovie(json))
           .catch(err => console.error(err));
     }, []);
+    useEffect(() => {
+        let url = `http://localhost:9000/rar/${Cookies.get("userId")}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(json => setRAR(json))
+            .catch(err => console.error(err));
+    }, []);
+
+    function createRAR(){
+        let url = "http://localhost:9000/rarCreate"
+        let theBody =
+        {
+            movieId: id,
+            userId: Cookies.get("userId"),
+            rating: rating,
+            review: review
+        }
+        console.log("BODY: ", theBody)
+        let fetchOptions = {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "Access-Control-Allow-Credentials": 'true',
+            },
+            body: JSON.stringify(theBody),
+        }
+        console.log("FETCH OPTIONS: ", fetchOptions)
+
+        fetch(url, fetchOptions)
+            .then(r => r.json())
+            .then(data => {
+                console.log("DATA RES: ", data)
+                location.reload();
+            })
+    }
 
     return (
         <div class="DetailBox">
@@ -56,6 +95,32 @@ const MovieDetails = () => {
                     }
                 </ul>
             </div>
+            {
+                Cookies.get("userId") ?
+                rar && rar.length > 0 ?
+                rar.map(rar => (
+                    rar.movieId == id ?
+                    <div class="RARBox">
+                        <h3>Your Review</h3>
+                        <p>{rar.review}</p>
+                        <p>Rating: {rar.rating}</p>
+                    </div> : ""
+                )) : 
+                <div>
+                <label>Review:</label>
+                <input type="text" name="review" onChange={(e) => {setReview(e.target.value)}}/>
+                <br />
+                <label>Rating:</label>
+                <input type="radio" name="rating" value="0" onChange={(e) => {setRating(e.target.value)}}/>
+                <input type="radio" name="rating" value="1" onChange={(e) => {setRating(e.target.value)}}/>
+                <input type="radio" name="rating" value="2" onChange={(e) => {setRating(e.target.value)}}/>
+                <input type="radio" name="rating" value="3" onChange={(e) => {setRating(e.target.value)}}/>
+                <input type="radio" name="rating" value="4" onChange={(e) => {setRating(e.target.value)}}/>
+                <input type="radio" name="rating" value="5" onChange={(e) => {setRating(e.target.value)}}/>
+                <br />
+                <button onClick={createRAR}>Add Review</button>
+            </div> : ""
+            }
 
             <Link to="/movies">Back to Movie List</Link>
         </div>

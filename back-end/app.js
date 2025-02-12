@@ -93,6 +93,7 @@ app.post('/rarCreate', (req, res) => {
         starRating: rating,
         movieReview: review
     }
+    console.log(data);
     DAL.createRAR(data);
     res.json({message: "Review and rating added successfully", rating: rating, review: review});
 });
