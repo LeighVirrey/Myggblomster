@@ -31,33 +31,34 @@ const MovieDetails = () => {
             .catch(err => console.error(err));
     }, []);
 
-    function createRAR(){
-        let url = "http://localhost:9000/rarCreate"
-        let theBody =
-        {
+    function createRAR() {
+        let url = "http://localhost:9000/rarCreate";
+        let theBody = {
             movieId: id,
             userId: Cookies.get("userId"),
             rating: rating,
-            review: review
-        }
-        console.log("BODY: ", theBody)
+            review: review,
+        };
+    
         let fetchOptions = {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Credentials": 'true',
+                "Access-Control-Allow-Credentials": "true",
             },
             body: JSON.stringify(theBody),
-        }
-        console.log("FETCH OPTIONS: ", fetchOptions)
-
+        };
+    
         fetch(url, fetchOptions)
-            .then(r => r.json())
-            .then(data => {
-                console.log("DATA RES: ", data)
-                location.reload();
+            .then((r) => r.json())
+            .then((data) => {
+                console.log("DATA RES: ", data);
+                // Instead of reloading, update the state
+                setRAR([...rar, data]); // Assuming `data` is the new review
             })
+            .catch((err) => console.error("Error:", err));
     }
+    
 
     return (
         <div class="DetailBox">
