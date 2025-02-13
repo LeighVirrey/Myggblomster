@@ -1,7 +1,8 @@
 body{
   background-size: cover;
-  background-image: url('C:\Users\kkingston\Desktop\Myggblomster\Myggblomster\front-end\public\images\theaterbackground.avif');
+  background-image: url('./public/images/theaterbackground.avif');
 }
+
 .movie-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -10,9 +11,9 @@ body{
 }
 
 .title {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 10rem;
+  color:#222;
+  margin: 50px;
 }
 
 .movie-list {
@@ -120,7 +121,7 @@ a {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 15px;
-  background: #007BFF;
+  background: #3a363c;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -128,5 +129,75 @@ a {
 }
 
 a:hover {
-  background: #0056b3;
+  background: #3a363c;
+}
+
+.navbar a{
+  background-color:#666;
+}
+
+body {
+  background-color: #f4f7f6;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.card-header {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3a363c;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 95%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #3a363c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 15px;
+}
+
+input[type="submit"]:hover {
+  background: #3a363c;
+}
+
+.navbar{
+  width: 100%
 }

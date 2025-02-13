@@ -137,6 +137,17 @@ app.put('/rarUpdate/:id', async (req, res) => {
     DAL.updateRAR(data, id);
     res.json({message: "Review and rating updated successfully", rating: rating, review: review});
 });
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            res.send('Could not log out');
+        } else {
+            res.clearCookie('connect.sid');
+            res.clearCookie('userId');
+            res.json({ success: true });
+        }
+    });
+});
 
 // Sets local host to port 9000
 const PORT = process.env.PORT || 9000;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import NavBar from '../navbar/navbar';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -45,12 +45,10 @@ const Login = () => {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
-                    "Access-Control-Allow-Credentials": 'true',
-                    // "Access-Control-Allow-Origin": '*',
-                    // "strict-origin-when-cross-origin": 'origin'
+                    "Access-Control-Allow-Credentials": 'true'
                 },
                 body: JSON.stringify(theBody),
-                // credentials: 'include'
+                credentials: 'include'
             }
             console.log("FETCH OPTIONS: ", fetchOptions)
 
@@ -61,8 +59,8 @@ const Login = () => {
                     if (data.alreadyExisted == false) {
                         navigate('/register')
                     } else {
-                        Cookies.set('userId', data.user.id, { path: '/' })
-                        navigate('/userProfile/' + data.user.id)
+                        Cookies.set('userId', data._id, { path: '/' })
+                        navigate('/userprofile/' + data._id)
                     }
                 })
 
@@ -72,6 +70,7 @@ const Login = () => {
 
     return (
         <div>
+            <div className='nav'><NavBar /></div>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6">

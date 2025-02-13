@@ -1,6 +1,9 @@
 import { useState } from "react";
+import NavBar from "../navbar/navbar";
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -28,7 +31,7 @@ const Register = () => {
             const data = contentType && contentType.includes("application/json") 
                 ? await response.json() 
                 : await response.text();
-        
+                navigate('/userProfile/' + data.userId);
             console.log("Response Data:", data);
         } catch (error) {
             console.error("Fetch error:", error);
@@ -38,29 +41,47 @@ const Register = () => {
 
     return (
         <div>
-            <h2>Create User</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+            <div className='nav'><NavBar /></div>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <div className="card mb-3">
+                            <h3 className="card-header text-primary">Register</h3>
+                            <div className="card-body">
+                                <form onSubmit={handleSubmit}>
+                                    <fieldset>
+                                        <div>
+                                            <label htmlFor="email" className="form-label mt-4">Email: </label>
+                                            <input
+                                                className="form-control"
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                required
+                                            />
+                                            
+                                        </div>
+                                        <div>
+                                            <label htmlFor="password" className="form-label mt-4">Password: </label>
+                                            <input
+                                                className="form-control"
+                                                type="password"
+                                                id="password"
+                                                name="password"
+                                                required
+                                            />
+                                            
+                                        </div>
+                                    
+                                        <br/>
+                                        <input type="submit" value="Register" />
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            {message && <p>{message}</p>}
+            </div>
         </div>
     );
 };
