@@ -126,7 +126,7 @@ const MovieDetails = () => {
                             </div> : ""
                 }
 
-                <Link to="/movies">Back to Movie List</Link>
+                <Link to="/">Back to Movie List</Link>
             </div>
         </div>
     );
