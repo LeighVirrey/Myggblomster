@@ -69,7 +69,7 @@ app.post('/login', (req, res) => {
                 }
             });
         } else {
-            res.json({message: "Login failed"});
+            res.json({message: "Login failed", success: false});
         }
     });
 

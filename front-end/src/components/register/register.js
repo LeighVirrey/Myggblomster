@@ -31,7 +31,7 @@ const Register = () => {
             const data = contentType && contentType.includes("application/json") 
                 ? await response.json() 
                 : await response.text();
-                navigate('/userProfile/' + data.userId);
+                navigate('/userProfile/' + data.id);
             console.log("Response Data:", data);
         } catch (error) {
             console.error("Fetch error:", error);
@@ -58,6 +58,8 @@ const Register = () => {
                                                 id="email"
                                                 name="email"
                                                 required
+
+                                                onChange={(e) => setEmail(e.target.value)}
                                             />
                                             
                                         </div>
@@ -69,6 +71,8 @@ const Register = () => {
                                                 id="password"
                                                 name="password"
                                                 required
+
+                                                onChange={(e) => setPassword(e.target.value)}
                                             />
                                             
                                         </div>

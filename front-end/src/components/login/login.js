@@ -58,9 +58,13 @@ const Login = () => {
                     console.log("DATA RES: ", data)
                     if (data.alreadyExisted == false) {
                         navigate('/register')
-                    } else {
-                        Cookies.set('userId', data._id, { path: '/' })
-                        navigate('/userprofile/' + data._id)
+                    }else if (data.message == "Login failed") {
+                        setMessage("Login failed")
+                    }else {
+                        console.log("DATA: ", data)
+                        Cookies.set('userId', data.user.id, { path: '/' })
+                        Cookies.set('isAdmin', data.user.isAdmin, { path: '/' })
+                        navigate('/userprofile/' + data.user.id)
                     }
                 })
 

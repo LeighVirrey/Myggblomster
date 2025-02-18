@@ -15,7 +15,8 @@ const MovieDetails = () => {
     const { id } = useParams();
     const [review, setReview] = useState("");
     const [rating, setRating] = useState(0);
-    const [rar, setRAR] = useState({});
+    const [userRar, setuserRAR] = useState({});
+    const [allRar, setAllRAR] = useState({});
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -25,10 +26,17 @@ const MovieDetails = () => {
             .catch(err => console.error(err));
     }, []);
     useEffect(() => {
-        let url = `http://localhost:9000/rar/${Cookies.get("userId")}`;
+        let url = `http://localhost:9000/rarUser/${Cookies.get("userId")}`;
         fetch(url)
             .then(res => res.json())
-            .then(json => setRAR(json))
+            .then(json => setuserRAR(json.ratingAndReviews))
+            .catch(err => console.error(err));
+    }, []);
+    useEffect(() => {
+        let url = `http://localhost:9000/rarMovie/${id}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(json => setAllRAR(json.ratingAndReviews))
             .catch(err => console.error(err));
     }, []);
 
@@ -55,11 +63,22 @@ const MovieDetails = () => {
             .then((data) => {
                 console.log("DATA RES: ", data);
                 // Instead of reloading, update the state
-                setRAR([...rar, data]); // Assuming `data` is the new review
+                setuserRAR([...userRar, data]); // Assuming `data` is the new review
             })
             .catch((err) => console.error("Error:", err));
     }
 
+    function adminDeleteRar(id){
+        let url = `http://localhost:9000/rarDelete/${id}`;
+        fetch(url, { method: "DELETE" })
+            .then((r) => r.json())
+            .then((data) => {
+                console.log("DATA RES: ", data);
+                // Instead of reloading, update the state
+                setAllRAR(allRar.filter(indivRar => indivRar.id !== id)); // Assuming `data` is the new review
+            })
+            .catch((err) => console.error("Error:", err));
+    }
 
     return (
         <div>
@@ -101,13 +120,13 @@ const MovieDetails = () => {
                 </div>
                 {
                     Cookies.get("userId") ?
-                        rar && rar.length > 0 ?
-                            rar.map(rar => (
-                                rar.movieId == id ?
+                        userRar && userRar.length > 0 && userRar.some(item => item.movieId === id) ?
+                            userRar.map(indivRar => (
+                                indivRar.movieId == id ?
                                     <div class="RARBox">
                                         <h3>Your Review</h3>
-                                        <p>{rar.review}</p>
-                                        <p>Rating: {rar.rating}</p>
+                                        <p>{indivRar.movieReview}</p>
+                                        <p>Rating: {indivRar.starRating}</p>
                                     </div> : ""
                             )) :
                             <div>
@@ -125,8 +144,23 @@ const MovieDetails = () => {
                                 <button onClick={createRAR}>Add Review</button>
                             </div> : ""
                 }
+                {
+                    allRar.length > 0 ?
+                        allRar.map(indivRar => (
+                            indivRar.movieId == id && indivRar.userId != Cookies.get("userId") ?
+                                <div class="RARBox">
+                                    <h3>Review</h3>
+                                    <p>{indivRar.movieReview}</p>
+                                    <p>Rating: {indivRar.starRating}</p>
+                                    {
+                                        Cookies.get("isAdmin") ?
+                                            <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button> : ""
+                                    }
+                                </div> : ""
+                        )) : ""
+                }
 
-                <Link to="/movies">Back to Movie List</Link>
+                <Link to="/">Back to Movie List</Link>
             </div>
         </div>
     );
