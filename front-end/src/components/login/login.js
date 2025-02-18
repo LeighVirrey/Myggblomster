@@ -1,24 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import NavBar from '../navbar/navbar';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const Login = () => {
-    const navigate = useNavigate()
-    const [message, setMessage] = useState(undefined)
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData({ ...formData, [name]: value });
     };
 
     const validate = () => {
@@ -29,94 +22,76 @@ const Login = () => {
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validate()) {
-            console.log('Form submitted successfully', formData);
-            console.log("Update Clicked")
-            let url = "http://localhost:9000/login"
-            let theBody =
-            {
-                email: formData.email,
-                password: formData.password
-            }
-            console.log("BODY: ", theBody)
-            let fetchOptions = {
+        if (!validate()) return;
+        
+        try {
+            const response = await fetch("http://localhost:9000/login", {
                 method: "POST",
                 headers: {
-                    "Content-type": "application/json",
-                    "Access-Control-Allow-Credentials": 'true'
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true"
                 },
-                body: JSON.stringify(theBody),
+                body: JSON.stringify(formData),
                 credentials: 'include'
+            });
+            
+            const data = await response.json();
+            
+            if (data.alreadyExisted === false) {
+                navigate('/register');
+            } else {
+                Cookies.set('userId', data._id, { path: '/' });
+                navigate(`/userprofile/${data._id}`);
             }
-            console.log("FETCH OPTIONS: ", fetchOptions)
-
-            fetch(url, fetchOptions)
-                .then(r => r.json())
-                .then(data => {
-                    console.log("DATA RES: ", data)
-                    if (data.alreadyExisted == false) {
-                        navigate('/register')
-                    } else {
-                        Cookies.set('userId', data._id, { path: '/' })
-                        navigate('/userprofile/' + data._id)
-                    }
-                })
-
+        } catch (error) {
+            setMessage("Login failed. Please try again.");
         }
-    }
-
+    };
 
     return (
         <div>
-            <div className='nav'><NavBar /></div>
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-6">
-                        <div className="card mb-3">
-                            <h3 className="card-header text-primary">Login</h3>
-                            <div className="card-body">
-                                <form onSubmit={handleSubmit}>
-                                    <fieldset>
-                                        <div>
-                                            <label htmlFor="email" className="form-label mt-4">Email: </label>
-                                            <input
-                                                className="form-control"
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                            {errors.email && <p className="error">{errors.email}</p>}
-                                        </div>
-                                        <div>
-                                            <label htmlFor="password" className="form-label mt-4">Password: </label>
-                                            <input
-                                                className="form-control"
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                                value={formData.password}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                            {errors.password && <p className="error">{errors.password}</p>}
-                                            <br />
-                                            <input type="submit" value="Login" />
-                                        </div>
-                                    </fieldset>
-                                </form>
+            <NavBar />
+            <div className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+                <div className="card shadow-lg p-4" style={{ width: "400px" }}>
+                    <h3 className="card-header text-center text-primary">Login</h3>
+                    <div className="card-body">
+                        {message && <div className="alert alert-danger">{message}</div>}
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email</label>
+                                <input
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                             </div>
-                        </div>
+                            <div className="mb-3">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                            </div>
+                            <button type="submit" className="btn btn-primary w-100">Login</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default Login
+export default Login;

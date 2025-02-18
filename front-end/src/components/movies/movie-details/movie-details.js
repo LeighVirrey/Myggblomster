@@ -63,7 +63,7 @@ const MovieDetails = () => {
 
     return (
         <div>
-            <div className='nav'><NavBar /></div>
+            <NavBar />
             <div class="DetailBox">
                 <div class="TopDetails">
                     <h2>Movie Details</h2>

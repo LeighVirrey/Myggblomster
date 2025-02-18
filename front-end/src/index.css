@@ -15,6 +15,14 @@ body{
   text-align: center;
 }
 
+.navbar .d-flex {
+  margin-left: auto;
+}
+
+.navbar .ms-auto {
+  margin-left: auto !important;
+}
+
 .title {
   font-size: 10rem;
   color:#a09f9f;
