@@ -21,11 +21,14 @@ const MovieList = () => {
 
     return (
         <div>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"></link>
             <div className='nav'><NavBar /></div>
 
             <div className="movie-container">
 
-                <h1 className="title">Popular Movies</h1>
+                <h1 className="title bungee-shade-regular">Popular Movies</h1>
                 <ul className="movie-list">
                     {movies && movies.length > 0 ? (
                         movies.map(movie => (

@@ -10,6 +10,9 @@ import UserPage from './components/profile/UsersPage';
 import Register from './components/register/register'
 import Login from './components/login/login';
 import UserProfile from './components/userProfile/userProfile'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 const BrowserRouter = createBrowserRouter([
   {
     path : '/',
