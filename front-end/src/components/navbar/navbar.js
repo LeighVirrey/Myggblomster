@@ -12,15 +12,17 @@ function NavBar() {
     };
 
     return (
-        <nav className="navbar navbar-dark bg-dark p-3">
+        <nav className="navbar navbar-dark bg-dark p-3 justify-content-end">
             <div className="container-fluid">
                 <div className="d-flex ms-auto">
+                    <a className="nav-item nav-link text-white mx-2" href="/">Home</a>
                     {!userId ? (
                         <>
                             <a className="nav-item nav-link text-white mx-2" href="/login">Login</a>
                             <a className="nav-item nav-link text-white mx-2" href="/register">Register</a>
                         </>
                     ) : (
+                        
                         <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                     )}
                 </div>

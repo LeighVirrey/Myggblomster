@@ -2,6 +2,11 @@ body{
   background-size: cover;
   background-image: url('./public/images/theaterbackground.avif');
 }
+.bungee-shade-regular {
+  font-family: "Bungee Shade", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .movie-container {
   max-width: 1200px;
@@ -12,7 +17,7 @@ body{
 
 .title {
   font-size: 10rem;
-  color:#222;
+  color:#a09f9f;
   margin: 50px;
 }
 
