@@ -1,5 +1,5 @@
 import React, { use } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import NavBar from '../../navbar/navbar';
@@ -11,11 +11,13 @@ import NavBar from '../../navbar/navbar';
 //80ff9aff7ec44bb8644c249abba9fc74
 
 const MovieDetails = () => {
+    const navigate = useNavigate();
     const [movie, setMovie] = useState({});
     const { id } = useParams();
     const [review, setReview] = useState("");
     const [rating, setRating] = useState(0);
-    const [rar, setRAR] = useState({});
+    const [userRar, setUserRAR] = useState([]);
+    const [allRar, setAllRAR] = useState([]);
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -25,14 +27,22 @@ const MovieDetails = () => {
             .catch(err => console.error(err));
     }, []);
     useEffect(() => {
-        let url = `http://localhost:9000/rar/${Cookies.get("userId")}`;
+        let url = `http://localhost:9000/rarUser/${Cookies.get("userId")}`;
         fetch(url)
             .then(res => res.json())
-            .then(json => setRAR(json))
+            .then(json => setUserRAR(json.ratingAndReviews))
             .catch(err => console.error(err));
     }, []);
 
-    function createRAR() {
+    useEffect(() => {
+        let url = `http://localhost:9000/rarMovie/${id}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(json => setAllRAR(json.ratingAndReviews))
+            .catch(err => console.error(err));
+    }, []);
+
+    async function createRAR() {
         let url = "http://localhost:9000/rarCreate";
         let theBody = {
             movieId: id,
@@ -49,15 +59,16 @@ const MovieDetails = () => {
             },
             body: JSON.stringify(theBody),
         };
+        let response = await fetch(url, fetchOptions)
+        let data = await response.json()
+        window.location.reload()
+    }
 
-        fetch(url, fetchOptions)
-            .then((r) => r.json())
-            .then((data) => {
-                console.log("DATA RES: ", data);
-                // Instead of reloading, update the state
-                setRAR([...rar, data]); // Assuming `data` is the new review
-            })
-            .catch((err) => console.error("Error:", err));
+    async function adminDeleteRar(id){
+        let url = `http://localhost:9000/rarDelete/${id}`;
+        let response = await fetch(url, {method: "DELETE"})
+        let data = await response.json()
+        window.location.reload()
     }
 
 
@@ -101,14 +112,18 @@ const MovieDetails = () => {
                 </div>
                 {
                     Cookies.get("userId") ?
-                        rar && rar.length > 0 ?
-                            rar.map(rar => (
-                                rar.movieId == id ?
+                    userRar && userRar.length > 0 && userRar.some(item => item.movieId === id) ?
+                    userRar.map(indivRar => (
+                        indivRar.movieId === id ?
+                        <>
                                     <div class="RARBox">
                                         <h3>Your Review</h3>
-                                        <p>{rar.review}</p>
-                                        <p className='rating-label bold'>Rating: {rar.rating}</p>
-                                    </div> : ""
+                                        <p>{indivRar.movieReview}</p>
+                                        <p>Rating: {indivRar.starRating}</p>
+                                    </div>
+                                    <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button>
+                                    </>
+                                    : ""
                             )) :
                             <div>
                                 <label>Review:</label>
@@ -130,10 +145,24 @@ const MovieDetails = () => {
                                     ))}
                                 </div>
                                 <br />
-                                <button onClick={createRAR}>Add Review</button>
+                                <button onClick={(e) => {createRAR()}}>Add Review</button>
                             </div> : ""
                 }
-
+                {
+                    allRar.length > 0 ?
+                        allRar.map(indivRar => (
+                            indivRar.movieId === id && indivRar.userId != Cookies.get("userId") ?
+                                <div class="RARBox">
+                                    <h3>Review</h3>
+                                    <p>{indivRar.movieReview}</p>
+                                    <p>Rating: {indivRar.starRating}</p>
+                                    {
+                                        Cookies.get("isAdmin") ?
+                                            <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button> : ""
+                                    }
+                                </div> : ""
+                        )) : ""
+                }
                 <Link to="/">Back to Movie List</Link>
             </div>
         </div>
