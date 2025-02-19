@@ -214,3 +214,110 @@ input[type="submit"]:hover {
 .navbar{
   width: 100%
 }
+
+.RARBox {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+.RARBox h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.RARBox p {
+  font-size: 16px;
+  color: #333;
+}
+
+.ReviewInputContainer {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.ReviewInputContainer label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.ReviewInputContainer input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  max-length: 250;
+}
+
+.RatingContainer {
+  margin-top: 10px;
+}
+
+.RatingContainer label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.RatingContainer input[type="radio"] {
+  margin-right: 5px;
+}
+
+.ReviewSubmitBtn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.ReviewSubmitBtn:hover {
+  background: #0056b3;
+}
+
+.review-input{
+  padding: 20px;
+  margin: 20px;
+  height: 150px;
+  width: 300px;
+}
+.rating-label{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.RatingContainer {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.RatingLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.RatingLabel input {
+  accent-color: #007bff;
+}

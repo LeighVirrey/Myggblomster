@@ -107,20 +107,28 @@ const MovieDetails = () => {
                                     <div class="RARBox">
                                         <h3>Your Review</h3>
                                         <p>{rar.review}</p>
-                                        <p>Rating: {rar.rating}</p>
+                                        <p className='rating-label bold'>Rating: {rar.rating}</p>
                                     </div> : ""
                             )) :
                             <div>
                                 <label>Review:</label>
-                                <input type="text" name="review" onChange={(e) => { setReview(e.target.value) }} />
+                                <input className='review-input' type="text" name="review" onChange={(e) => { setReview(e.target.value) }} />
                                 <br />
-                                <label>Rating:</label>
-                                <input type="radio" name="rating" value="0" onChange={(e) => { setRating(e.target.value) }} />
-                                <input type="radio" name="rating" value="1" onChange={(e) => { setRating(e.target.value) }} />
-                                <input type="radio" name="rating" value="2" onChange={(e) => { setRating(e.target.value) }} />
-                                <input type="radio" name="rating" value="3" onChange={(e) => { setRating(e.target.value) }} />
-                                <input type="radio" name="rating" value="4" onChange={(e) => { setRating(e.target.value) }} />
-                                <input type="radio" name="rating" value="5" onChange={(e) => { setRating(e.target.value) }} />
+                                {/* <label>Rating:</label> */}
+                                <div className="RatingContainer">
+                                    <label>Rating:</label>
+                                    {[0, 1, 2, 3, 4, 5].map((value) => (
+                                        <label key={value} className="RatingLabel">
+                                            <input
+                                                type="radio"
+                                                name="rating"
+                                                value={value}
+                                                onChange={(e) => setRating(e.target.value)}
+                                            />
+                                            {value}
+                                        </label>
+                                    ))}
+                                </div>
                                 <br />
                                 <button onClick={createRAR}>Add Review</button>
                             </div> : ""
