@@ -221,7 +221,7 @@ input[type="submit"]:hover {
   padding: 15px;
   margin-top: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  width: 600px;
 }
 
 .RARBox h3 {
@@ -255,7 +255,6 @@ input[type="submit"]:hover {
   border: 1px solid #ced4da;
   border-radius: 5px;
   font-size: 14px;
-  max-length: 250;
 }
 
 .RatingContainer {
@@ -320,4 +319,14 @@ input[type="submit"]:hover {
 
 .RatingLabel input {
   accent-color: #007bff;
+}
+.RARContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers child elements */
+  justify-content: center;
+
+}
+.review-label{
+  font-weight: bold;
 }

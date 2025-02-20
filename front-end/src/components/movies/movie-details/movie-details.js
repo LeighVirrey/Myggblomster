@@ -65,13 +65,13 @@ const MovieDetails = () => {
     }
 
 
-async function adminDeleteRar(id){
-    let url = `http://localhost:9000/rarDelete/${id}`;
-    let response = await fetch(url, {method: "DELETE"})
-    let data = await response.json()
-    window.location.reload()
-}
-    
+    async function adminDeleteRar(id) {
+        let url = `http://localhost:9000/rarDelete/${id}`;
+        let response = await fetch(url, { method: "DELETE" })
+        let data = await response.json()
+        window.location.reload()
+    }
+
 
 
 
@@ -115,24 +115,31 @@ async function adminDeleteRar(id){
                 </div>
                 {
                     Cookies.get("userId") ?
-                    userRar && userRar.length > 0 && userRar.some(item => item.movieId === id) ?
-                    userRar.map(indivRar => (
-                        indivRar.movieId === id ?
-                        <>
-                                    <div class="RARBox">
-                                        <h3>Your Review</h3>
-                                        <p>{indivRar.movieReview}</p>
-                                        <p>Rating: {indivRar.starRating}</p>
-                                    </div>
-                                    <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button>
+                        userRar && userRar.length > 0 && userRar.some(item => item.movieId === id) ?
+                            userRar.map(indivRar => (
+                                indivRar.movieId === id ?
+                                    <>
+                                        <div class="RARBox">
+                                            <h3>Your Review</h3>
+                                            <p>{indivRar.movieReview}</p>
+                                            <p>Rating: {indivRar.starRating}</p>
+                                        </div>
+                                        <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button>
                                     </>
-                                    : ""   
+                                    : ""
                             )) :
                             <div>
-                                <label>Review:</label>
-                                <input className='review-input' type="text" name="review" onChange={(e) => { setReview(e.target.value) }} />
+                                <label className='review-label'>Review:</label>
+                                <br></br>
+                                <textarea
+                                    className="review-input"
+                                    name="review"
+                                    rows="4"
+                                    cols="50"
+                                    onChange={(e) => setReview(e.target.value)}
+                                    placeholder="Write your review here..."
+                                ></textarea>
                                 <br />
-                                {/* <label>Rating:</label> */}
                                 <div className="RatingContainer">
                                     <label>Rating:</label>
                                     {[0, 1, 2, 3, 4, 5].map((value) => (
@@ -148,24 +155,25 @@ async function adminDeleteRar(id){
                                     ))}
                                 </div>
                                 <br />
-                                <button onClick={(e) => {createRAR()}}>Add Review</button>
+                                <button onClick={(e) => { createRAR() }}>Add Review</button>
                             </div> : ""
                 }
-                                {
-                    allRar.length > 0 ?
-                        allRar.map(indivRar => (
-                            indivRar.movieId === id ?
-                                <div class="RARBox">
+                <div className="RARContainer">
+                    {allRar.length > 0 &&
+                        allRar.map(indivRar =>
+                            indivRar.movieId === id ? (
+                                <div className="RARBox">
                                     <h3>Review</h3>
                                     <p>{indivRar.movieReview}</p>
                                     <p>Rating: {indivRar.starRating}</p>
-                                    {
-                                        Cookies.get("isAdmin") ?
-                                            <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button> : ""
-                                    }
-                                </div> : ""
-                        )) : ""
-                }
+                                    {Cookies.get("isAdmin") && (
+                                        <button onClick={() => adminDeleteRar(indivRar.ID)}>Delete</button>
+                                    )}
+                                </div>
+                            ) : null
+                        )
+                    }
+                </div>
 
                 <Link to="/">Back to Movie List</Link>
             </div>
