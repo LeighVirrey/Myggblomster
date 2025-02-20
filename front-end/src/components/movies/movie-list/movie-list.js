@@ -1,36 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../navbar/navbar';
 
-
 const MovieList = () => {
     const [movies, setMovies] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+    const API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
 
     useEffect(() => {
-        const API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
-
-        fetch(url)
-            .then(res => res.json())
-            .then(json => setMovies(json.results))
-            .catch(err => console.error(err));
+        fetchMovies();
     }, []);
 
-    function redirectDetails(id) {
+    const fetchMovies = async (query = "") => {
+        let url = query
+            ? `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}&language=en-US&page=1&include_adult=false`
+            : `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            setMovies(data.results || []);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchMovies(searchQuery);
+    };
+
+    const redirectDetails = (id) => {
         window.location.href = `/movies/${id}`;
-    }
+    };
 
     return (
         <div>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-            <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"></link>
             <NavBar />
 
-            <div className="movie-container">
+            <div className="search-container">
+                <form onSubmit={handleSearch}>
+                    <input
+                        type="text"
+                        placeholder="Search for a movie..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="search-input"
+                    />
+                    <button type="submit" className="search-button">Search</button>
+                </form>
+            </div>
 
-                <h1 className="title bungee-shade-regular">Popular Movies</h1>
+            <div className="movie-container">
+                <h1 className="title">Movies</h1>
                 <ul className="movie-list">
-                    {movies && movies.length > 0 ? (
+                    {movies.length > 0 ? (
                         movies.map(movie => (
                             <li key={movie.id} className="movie-item" onClick={() => redirectDetails(movie.id)}>
                                 <img
@@ -45,7 +68,7 @@ const MovieList = () => {
                             </li>
                         ))
                     ) : (
-                        <p className="loading">...Loading</p>
+                        <p className="loading">No movies found...</p>
                     )}
                 </ul>
             </div>
