@@ -73,10 +73,9 @@ const MovieDetails = () => {
         window.location.reload()
     }
 
-
-
-
+    console.log(userRar)
     return (
+        userRar.ratingAndReviews && movie.genres && movie.production_companies && allRar ?
         <div>
             <NavBar />
             <div class="DetailBox">
@@ -114,51 +113,50 @@ const MovieDetails = () => {
                         }
                     </ul>
                 </div>
-                {
-                    Cookies.get("userId") ?
-                        userRar && userRar.length > 0 && userRar.some(item => item.movieId === id) ?
-                            userRar.map(indivRar => (
-                                indivRar.movieId === id ?
-                                    <>
-                                        <div class="RARBox">
-                                            <h3>Your Review</h3>
-                                            <p>{indivRar.movieReview}</p>
-                                            <p>Rating: {indivRar.starRating}</p>
-                                        </div>
-                                        <button onClick={(e) => adminDeleteRar(indivRar.ID)}>Delete</button>
-                                    </>
-                                    : ""
-                            )) :
-                            <div>
-                                <label className='review-label'>Review:</label>
-                                <br></br>
-                                <textarea
-                                    className="review-input"
-                                    name="review"
-                                    rows="4"
-                                    cols="50"
-                                    onChange={(e) => setReview(e.target.value)}
-                                    placeholder="Write your review here..."
-                                ></textarea>
-                                <br />
-                                <div className="RatingContainer">
-                                    <label>Rating:</label>
-                                    {[0, 1, 2, 3, 4, 5].map((value) => (
-                                        <label key={value} className="RatingLabel">
-                                            <input
-                                                type="radio"
-                                                name="rating"
-                                                value={value}
-                                                onChange={(e) => setRating(e.target.value)}
-                                            />
-                                            {value}
-                                        </label>
-                                    ))}
+                {Cookies.get("userId") ? (
+                    userRar.ratingAndReviews.some(item => item.movieId === id)? (
+                        userRar.ratingAndReviews.map(indivRar => (
+                            indivRar.movieId === id ? (
+                                <div className="RARBox" key={indivRar.id}>
+                                    <h3>Your Review</h3>
+                                    <p>{indivRar.movieReview}</p>
+                                    <p>Rating: {indivRar.starRating}</p>
+                                    <button onClick={() => adminDeleteRar(indivRar.ID)}>Delete</button>
                                 </div>
-                                <br />
-                                <button onClick={(e) => { createRAR() }}>Add Review</button>
-                            </div> : ""
-                }
+                            ) : null
+                        ))
+                    ) : (
+                        <div>
+                            <label className='review-label'>Review:</label>
+                            <br />
+                            <textarea
+                                className="review-input"
+                                name="review"
+                                rows="4"
+                                cols="50"
+                                onChange={(e) => setReview(e.target.value)}
+                                placeholder="Write your review here..."
+                            ></textarea>
+                            <br />
+                            <div className="RatingContainer">
+                                <label>Rating:</label>
+                                {[0, 1, 2, 3, 4, 5].map((value) => (
+                                    <label key={value} className="RatingLabel">
+                                        <input
+                                            type="radio"
+                                            name="rating"
+                                            value={value}
+                                            onChange={(e) => setRating(e.target.value)}
+                                        />
+                                        {value}
+                                    </label>
+                                ))}
+                            </div>
+                            <br />
+                            <button onClick={createRAR}>Add Review</button>
+                        </div>
+                    )
+                ) : null}
                 <div className="RARContainer">
                     {allRar.length > 0 && 
                         allRar.map(indivRar =>
@@ -167,9 +165,9 @@ const MovieDetails = () => {
                                     <h3>Review</h3>
                                     <p>{indivRar.movieReview}</p>
                                     <p>Rating: {indivRar.starRating}</p>
-                                    {Cookies.get("isAdmin") && (
+                                    {Cookies.get("isAdmin") === "true" ? 
                                         <button onClick={() => adminDeleteRar(indivRar.ID)}>Delete</button>
-                                    )}
+                                     : null}
                                 </div>
                             ) : null
                         )
@@ -179,6 +177,7 @@ const MovieDetails = () => {
                 <Link to="/">Back to Movie List</Link>
             </div>
         </div>
+        : "Loading..."
     );
 };
 
