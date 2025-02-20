@@ -26,6 +26,7 @@ const MovieDetails = () => {
             .catch(err => console.error(err));
     }, []);
     useEffect(() => {
+        if (!Cookies.get("userId")) return;
         let url = `http://localhost:9000/rarUser/${Cookies.get("userId")}`;
         fetch(url)
             .then(res => res.json())
@@ -159,9 +160,9 @@ const MovieDetails = () => {
                             </div> : ""
                 }
                 <div className="RARContainer">
-                    {allRar.length > 0 &&
+                    {allRar.length > 0 && 
                         allRar.map(indivRar =>
-                            indivRar.movieId === id ? (
+                            indivRar.movieId === id && indivRar.userId !== Cookies.get('userId') ? (
                                 <div className="RARBox">
                                     <h3>Review</h3>
                                     <p>{indivRar.movieReview}</p>
