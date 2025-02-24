@@ -43,6 +43,10 @@ const MovieDetails = () => {
     }, []);
 
     async function createRAR() {
+        if(review === "" || rating === 0 || rating.length > 255) {
+            alert("Please fill out all fields and make sure your review is less than 255 characters.")
+            return
+        }
         let url = "http://localhost:9000/rarCreate";
         let theBody = {
             movieId: id,
