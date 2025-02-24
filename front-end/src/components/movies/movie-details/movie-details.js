@@ -22,7 +22,10 @@ const MovieDetails = () => {
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
         fetch(url)
             .then(res => res.json())
-            .then(json => setMovie(json))
+            .then(json => {
+                setMovie(json);
+                document.body.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${json.backdrop_path})`;
+            })
             .catch(err => console.error(err));
     }, []);
     useEffect(() => {
@@ -77,9 +80,8 @@ const MovieDetails = () => {
         window.location.reload()
     }
 
-    console.log(userRar)
     return (
-        userRar.ratingAndReviews && movie.genres && movie.production_companies && allRar ?
+        movie.genres && movie.production_companies && allRar ?
         <div>
             <NavBar />
             <div class="DetailBox">

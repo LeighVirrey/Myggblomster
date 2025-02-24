@@ -8,6 +8,7 @@ function NavBar() {
 
     const handleLogout = () => {
         Cookies.remove('userId');
+        Cookies.remove('isAdmin');
         navigate('/login');
     };
 

@@ -19,6 +19,7 @@ const MovieList = () => {
             const res = await fetch(url);
             const data = await res.json();
             setMovies(data.results || []);
+            document.body.style.backgroundImage = `./public/images/theaterbackground.avif`;
         } catch (err) {
             console.error(err);
         }
