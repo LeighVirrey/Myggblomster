@@ -52,7 +52,7 @@ const MovieList = () => {
             </div>
 
             <div className="movie-container">
-                <h1 className="title">Movies</h1>
+                <h1 className="title bungee-shade-regular">Movies</h1>
                 <ul className="movie-list">
                     {movies.length > 0 ? (
                         movies.map(movie => (
