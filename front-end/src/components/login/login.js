@@ -58,8 +58,8 @@ const Login = () => {
         <div>
             <NavBar />
             <div className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-                <div className="card shadow-lg p-4" style={{ width: "400px" }}>
-                    <h3 className="card-header text-center text-primary">Login</h3>
+                <div className="card login-card  p-4" style={{ width: "400px" }}>
+                    <h3 className="card-header text-center text-warning">Login</h3>
                     <div className="card-body">
                         {message && <div className="alert alert-danger">{message}</div>}
                         <form onSubmit={handleSubmit}>

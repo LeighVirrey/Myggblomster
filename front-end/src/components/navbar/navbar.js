@@ -16,17 +16,17 @@ function NavBar() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid d-flex align-items-center">
                 {/* Left Section - Home Link */}
-                <div>
+                <div className='left-nav'>
                     <Link className="navbar-brand" to="/">Home</Link>
                 </div>
 
                 {/* Center Section - Title */}
                 <div className="flex-grow-1 text-center">
-                    <h1 className="navbar-title  m-0">MYGGBLOMSTER</h1>
+                    <h1 className="navbar-title m-0">MYGGBLOMSTER</h1>
                 </div>
 
                 {/* Right Section - Login/Register/Logout Buttons */}
-                <div>
+                <div className='right-nav'>
                     {!userId ? (
                         <>
                             <Link className="btn btn-outline-info mx-1" to="/login">Login</Link>

@@ -186,7 +186,7 @@ const MovieDetails = () => {
                     }
                 </div>
 
-                <Link to="/">Back to Movie List</Link>
+                <Link className='backtomovielist' to="/">Back to Movie List</Link>
             </div>
         </div>
         : "Loading..."

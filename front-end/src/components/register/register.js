@@ -43,8 +43,8 @@ const Register = () => {
         <div>
             <NavBar />
             <div className="container d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
-                <div className="card shadow-lg p-4" style={{ width: "400px" }}>
-                    <h3 className="card-header text-center text-primary">Register</h3>
+                <div className="card register-card  p-4" style={{ width: "400px" }}>
+                    <h3 className="card-header text-center text-warning">Register</h3>
                     <div className="card-body">
                         {message && <div className="alert alert-danger">{message}</div>}
                         <form onSubmit={handleSubmit}>

@@ -383,7 +383,7 @@ input[type="submit"]:hover {
 }
 
 .search-button:hover {
-  background: #137cad;
+  background: #9c7500;
 }
 
 .btn-outline-info {
@@ -402,4 +402,27 @@ input[type="submit"]:hover {
 
 .navbar-title{
   color: #ffc107 !important
+}
+
+.btn-primary{
+  border-color: #000000 !important;
+  background-color: #ffc107 !important
+}
+
+.backtomovielist{
+  background-color: #777;
+  color: #ffc107
+}
+
+.register-card{
+  box-shadow: 5px 5px 5px #ffc107 !important;
+}
+
+.login-card{
+  box-shadow: 5px 5px 5px #ffc107 !important;
+
+}
+
+.left-nav{
+  width: 175px
 }
