@@ -20,6 +20,7 @@ const MovieDetails = () => {
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
+    
         fetch(url)
             .then(res => res.json())
             .then(json => {
@@ -27,7 +28,12 @@ const MovieDetails = () => {
                 document.body.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${json.backdrop_path})`;
             })
             .catch(err => console.error(err));
-    }, []);
+    
+        return () => {
+            document.body.style.backgroundImage = ""; // Reset to default (CSS will take over)
+        };
+    }, [id]);
+    
     useEffect(() => {
         if (!Cookies.get("userId")) return;
         let url = `http://localhost:9000/rarUser/${Cookies.get("userId")}`;

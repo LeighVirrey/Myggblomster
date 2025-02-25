@@ -18,8 +18,9 @@ const MovieList = () => {
         try {
             const res = await fetch(url);
             const data = await res.json();
-            setMovies(data.results || []);
             document.body.style.backgroundImage = `./public/images/theaterbackground.avif`;
+            setMovies(data.results || []);
+
         } catch (err) {
             console.error(err);
         }
@@ -38,21 +39,22 @@ const MovieList = () => {
         <div>
             <NavBar />
 
-            <div className="search-container">
-                <form onSubmit={handleSearch}>
-                    <input
-                        type="text"
-                        placeholder="Search for a movie..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="search-input"
-                    />
-                    <button type="submit" className="search-button">Search</button>
-                </form>
-            </div>
+
 
             <div className="movie-container">
                 <h1 className="title bungee-shade-regular">Movies</h1>
+                <div className="search-container">
+                    <form onSubmit={handleSearch}>
+                        <input
+                            type="text"
+                            placeholder="Search for a movie..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="search-input"
+                        />
+                        <button type="submit" className="search-button">Search</button>
+                    </form>
+                </div>
                 <ul className="movie-list">
                     {movies.length > 0 ? (
                         movies.map(movie => (

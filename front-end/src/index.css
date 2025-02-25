@@ -6,6 +6,7 @@ body{
   font-family: "Bungee Shade", serif;
   font-weight: 400;
   font-style: normal;
+  
 }
 
 .movie-container {
@@ -25,9 +26,11 @@ body{
 
 .title {
   font-size: 10rem;
-  color:#a09f9f;
-  margin: 50px;
+  color:#ffc107;
+  margin: 20Px;
+  
 }
+
 
 .bungee-shade-regular {
   font-family: "Bungee Shade", serif;
@@ -46,7 +49,7 @@ body{
 .movie-item {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 5px #ffc107;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
@@ -218,7 +221,7 @@ input[type="submit"]:hover {
 }
 
 .navbar{
-  width: 100%
+  width: 100%;
 }
 
 .RARBox {
@@ -231,7 +234,7 @@ input[type="submit"]:hover {
 }
 
 .RARBox h3 {
-  color: #007bff;
+  color: #e2d628;
   margin-bottom: 10px;
 }
 
@@ -280,7 +283,7 @@ input[type="submit"]:hover {
   display: block;
   width: 100%;
   padding: 10px;
-  background: #007bff;
+  background: #ffc107;
   color: white;
   border: none;
   border-radius: 5px;
@@ -290,7 +293,7 @@ input[type="submit"]:hover {
 }
 
 .ReviewSubmitBtn:hover {
-  background: #0056b3;
+  background:#ffc107;
 }
 
 .review-input{
@@ -324,7 +327,7 @@ input[type="submit"]:hover {
 }
 
 .RatingLabel input {
-  accent-color: #007bff;
+  accent-color: #ffc107;
 }
 .RARContainer {
   display: flex;
@@ -335,4 +338,68 @@ input[type="submit"]:hover {
 }
 .review-label{
   font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  max-width: 500px;
+}
+
+/* form {
+  display: flex;
+  align-items: center;
+  background: #2c2f3f;
+  border-radius: 25px;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+} */
+
+.search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  font-size: 16px;
+  background: #1c1f2b;
+  color: #fff;
+}
+
+.search-input::placeholder {
+  color: #a1a1a1;
+}
+
+.search-button {
+  background: #ffc107;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 0 25px 25px 0;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.search-button:hover {
+  background: #137cad;
+}
+
+.btn-outline-info {
+  color: #ffc107 !important; /* Yellow text */
+  border-color: #ffc107 !important; /* Yellow border */
+}
+
+.btn-outline-info:hover {
+  background-color: #ffc107 !important; /* Yellow background */
+  color: black !important; /* Black text for contrast */
+  border-color: #ffc107 !important;
+}
+.navbar-brand{
+  background-color: #ffc107 !important
+}
+
+.navbar-title{
+  color: #ffc107 !important
 }
