@@ -17,6 +17,7 @@ const MovieDetails = () => {
     const [rating, setRating] = useState(0);
     const [userRar, setUserRAR] = useState([]);
     const [allRar, setAllRAR] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -39,7 +40,10 @@ const MovieDetails = () => {
         let url = `http://localhost:9000/rarUser/${Cookies.get("userId")}`;
         fetch(url)
             .then(res => res.json())
-            .then(json => setUserRAR(json))
+            .then(json => {
+                setUserRAR(json)
+                setLoading(false)
+            })
             .catch(err => console.error(err));
     }, []);
 
@@ -47,7 +51,10 @@ const MovieDetails = () => {
         let url = `http://localhost:9000/rarMovie/${id}`;
         fetch(url)
             .then(res => res.json())
-            .then(json => setAllRAR(json.ratingAndReviews))
+            .then(json => {
+                setAllRAR(json.ratingAndReviews)
+                setLoading(false)
+            })
             .catch(err => console.error(err));
     }, []);
 
@@ -86,6 +93,9 @@ const MovieDetails = () => {
         window.location.reload()
     }
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
     return (
         movie.genres && movie.production_companies && allRar ?
         <div>
