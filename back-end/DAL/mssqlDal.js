@@ -5,7 +5,7 @@ let pool;
 
 const getPool = async function() {
     if (!pool) {
-        pool = await sql.connect('Server=myggblomster.clqa2ooua2aq.us-east-2.rds.amazonaws.com,1433;Database=myggblomsterDB;User Id=admin;Password=password;trustServerCertificate=true');
+        pool = await sql.connect('Server=fullstack.clqa2ooua2aq.us-east-2.rds.amazonaws.com,1433;Database=myggblomsterDB;User Id=admin;Password=password;trustServerCertificate=true');
     }
     return pool;
 }

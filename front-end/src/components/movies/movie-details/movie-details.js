@@ -87,6 +87,8 @@ const MovieDetails = () => {
 
 
     async function adminDeleteRar(id) {
+        console.log(id)
+        console.log(id.type)
         let url = `http://localhost:9000/rarDelete/${id}`;
         let response = await fetch(url, { method: "DELETE" })
         let data = await response.json()
@@ -143,7 +145,7 @@ const MovieDetails = () => {
                                     <h3>Your Review</h3>
                                     <p>{indivRar.movieReview}</p>
                                     <p>Rating: {indivRar.starRating}</p>
-                                    <button onClick={() => adminDeleteRar(indivRar.ID)}>Delete</button>
+                                    <button onClick={() => adminDeleteRar(indivRar.id)}>Delete</button>
                                 </div>
                             ) : null
                         ))
