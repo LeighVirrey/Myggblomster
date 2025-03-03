@@ -17,7 +17,8 @@ const MovieDetails = () => {
     const [rating, setRating] = useState(0);
     const [userRar, setUserRAR] = useState([]);
     const [allRar, setAllRAR] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loadingUser, setLoadingUser] = useState(true);
+    const [loadingMovie, setLoadingMovie] = useState(true);
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -27,6 +28,7 @@ const MovieDetails = () => {
             .then(json => {
                 setMovie(json);
                 document.body.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${json.backdrop_path})`;
+                setLoadingMovie(false);
             })
             .catch(err => console.error(err));
     
@@ -42,7 +44,7 @@ const MovieDetails = () => {
             .then(res => res.json())
             .then(json => {
                 setUserRAR(json)
-                setLoading(false)
+                setLoadingUser(false)
             })
             .catch(err => console.error(err));
     }, []);
@@ -53,7 +55,7 @@ const MovieDetails = () => {
             .then(res => res.json())
             .then(json => {
                 setAllRAR(json.ratingAndReviews)
-                setLoading(false)
+                setLoadingUser(false)
             })
             .catch(err => console.error(err));
     }, []);
@@ -95,7 +97,10 @@ const MovieDetails = () => {
         window.location.reload()
     }
 
-    if (loading) {
+    if (loadingUser) {
+        return <div>Loading...</div>;
+    }
+    if (loadingMovie) {
         return <div>Loading...</div>;
     }
     return (
@@ -137,7 +142,7 @@ const MovieDetails = () => {
                         }
                     </ul>
                 </div>
-                {Cookies.get("userId") ? (
+                {Cookies.get("userId") && userRar && userRar.ratingAndReviews ? (
                     userRar.ratingAndReviews.some(item => item.movieId === id)? (
                         userRar.ratingAndReviews.map(indivRar => (
                             indivRar.movieId === id ? (
