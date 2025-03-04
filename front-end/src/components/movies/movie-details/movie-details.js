@@ -11,8 +11,8 @@ const MovieDetails = () => {
     const [rating, setRating] = useState(0);
     const [userRar, setUserRAR] = useState({ ratingAndReviews: [] });
     const [allRar, setAllRAR] = useState([]);
-    const [loading, setLoading] = useState(true);
-
+    const [loadingUser, setLoadingUser] = useState(true);
+    const [loadingMovie, setLoadingMovie] = useState(true);
     useEffect(() => {
         let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74';
         let url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`;
@@ -22,6 +22,7 @@ const MovieDetails = () => {
             .then(json => {
                 setMovie(json);
                 document.body.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${json.backdrop_path})`;
+                setLoadingMovie(false);
             })
             .catch(err => console.error(err));
 
@@ -36,8 +37,8 @@ const MovieDetails = () => {
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                setUserRAR(json || { ratingAndReviews: [] });
-                setLoading(false);
+                setUserRAR(json)
+                setLoadingUser(false)
             })
             .catch(err => console.error(err));
     }, []);
@@ -47,8 +48,8 @@ const MovieDetails = () => {
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                setAllRAR(json.ratingAndReviews || []);
-                setLoading(false);
+                setAllRAR(json.ratingAndReviews)
+                setLoadingUser(false)
             })
             .catch(err => console.error(err));
     }, [id]);
@@ -85,7 +86,10 @@ const MovieDetails = () => {
         window.location.reload();
     }
 
-    if (loading) {
+    if (loadingUser) {
+        return <div>Loading...</div>;
+    }
+    if (loadingMovie) {
         return <div>Loading...</div>;
     }
 
@@ -121,7 +125,7 @@ const MovieDetails = () => {
                         </ul>
                     </div>
 
-                    {Cookies.get("userId") ? (
+                    {Cookies.get("userId") && userRar.ratingAndReviews ? (
                         userRar?.ratingAndReviews?.some(item => item.movieId === id) ? (
                             userRar.ratingAndReviews.map(indivRar => (
                                 indivRar.movieId === id && (
