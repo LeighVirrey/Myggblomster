@@ -65,7 +65,7 @@ const MovieList = () => {
                             alt={item.name}
                             className="actor-image"
                         />
-                        <h2>{item.name}</h2>
+                        <h2 className='movie-title'>{item.name}</h2>
                         <p>{item.known_for_department}</p>
                         <button onClick={() => redirectDetails(item.id, 'person')}>View Movies</button>
                     </div>
