@@ -10,8 +10,8 @@ body{
 }
 
 .movie-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 40px;
   padding: 20px;
   text-align: center;
 }
@@ -342,7 +342,6 @@ input[type="submit"]:hover {
 }
 
 .search-container {
-  display: flex;
   justify-content: center;
   margin: 30px auto;
   max-width: 500px;
@@ -567,7 +566,7 @@ h2 {
 }
 
 .movie-item {
-  width: 200px;
+  max-width: 200px;
   background-color: #222;
   padding: 15px;
   border-radius: 10px;
@@ -596,4 +595,171 @@ h2 {
   font-size: 1.2rem;
   margin-top: 10px;
   color: #ffcc00;
+}
+
+
+
+
+
+
+
+.movie-genre-container {
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.genre-filter {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.movie-list-container {
+  width: 70%; /* Adjust the width as needed */
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.movie-item {
+  width: calc(33.33% - 20px); /* Adjust based on the desired number of columns */
+  cursor: pointer;
+}
+
+.movie-poster {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.movie-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.search-input {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 10px;
+  background-color: #ffcc00;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.genre-checkbox {
+  display: block;
+  margin: 5px 0;
+}
+
+.genre-checkbox input {
+  margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.genre-filter {
+  color: #ffcc00;
+  flex-wrap: wrap;
+  gap: 15px;
+  height: fit-content;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  align-items: center;
+}
+
+.genre-filter h3 {
+  width: 100%;
+  color: #ffcc00;
+  font-size: 1.2rem;
+  ;
+}
+
+.genre-checkbox {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 200px; /* Set all checkboxes to the same width */
+  justify-content: left;
+}
+
+.genre-checkbox:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.genre-checkbox input {
+  margin-right: 8px;
+  transform: scale(1.2);
+}
+
+.genre-checkbox input:checked + label {
+  font-weight: bold;
+  color: #ffcc00; /* Yellow text when checked */
+}
+
+.search-results-title{
+  padding-top: 10px;
+  color: #ffcc00;
+}
+
+
+
+
+
+
+
+.movie-list-container {
+  width: 70%; /* Adjust the width as needed */
+  height: 1000px; /* Fixed height for scroll */
+  overflow-y: scroll; /* Keeps the list scrollable */
+}
+
+.movie-list-container::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.movie-item {
+  width: calc(33.33% - 20px); /* Adjust based on the desired number of columns */
+  cursor: pointer;
+}
+
+.movie-poster {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.movie-info {
+  text-align: center;
+  margin-top: 10px;
 }
