@@ -10,6 +10,7 @@ import UserPage from './components/profile/UsersPage';
 import Register from './components/register/register'
 import Login from './components/login/login';
 import UserProfile from './components/userProfile/userProfile'
+import ActorMovies from './components/movies/movie-details/actor-movies';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -19,8 +20,12 @@ const BrowserRouter = createBrowserRouter([
     element : <MovieList />
   },
   {
-    path : '/movies/:id',
+    path : '/movies/:id/movie',
     element : <MovieDetails />
+  },
+  {
+    path: '/movies/:id/person',
+    element: <ActorMovies />
   },
   {
     path : '/users',
