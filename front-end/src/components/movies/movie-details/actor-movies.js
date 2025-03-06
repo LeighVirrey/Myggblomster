@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import React from "react";
 import {Link, useParams} from "react-router-dom";
+import NavBar from "../../navbar/navbar";
 
 const ActorMovies = () => {
     let API_KEY = '80ff9aff7ec44bb8644c249abba9fc74'
@@ -28,32 +29,48 @@ const ActorMovies = () => {
             .catch(err => console.error(err));
     }, [id])
 
+    const redirectDetails = (id, type) => {
+        window.location.href = `/movies/${id}/${type}`;
+    };
+
     return (
         <div>
-            <h1>{actor.name}</h1>
-            <img src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`} alt={actor.name} />
-            <p>{actor.biography}</p>
+    <NavBar />
+    <div className="actor-profile">
+        <h1 className="actor-name">{actor.name}</h1>
+        <img src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`} alt={actor.name} />
+        <p className="bio">{actor.biography}</p>
 
-            {
-                movies ? (
-                    <>
-                    <h2>Known For</h2>
-                    <ul>
-                        {movies.map(movie => (
-                            <li key={movie.id}>
-                                <Link to={`/movies/${movie.id}/movie`}>
-                                    <img src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} alt={movie.title} />
-                                    <h3>{movie.title}</h3>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </>
-                ) : 
-                <p>No movies found</p>
-            }
-            </div>
+        {movies && movies.length > 0 ? (
+            <>
+                <h2 className="search-results-title">Known For</h2>
+                <ul className="movie-list">
+                    {movies.map(movie => (
+                        <li 
+                            key={movie.id} 
+                            className="movie-item" 
+                            onClick={() => redirectDetails(movie.id, "movie")}
+                        >
+                            <img 
+                                src={`https://image.tmdb.org/t/p/w185/${movie.poster_path}`} 
+                                alt={movie.title} 
+                                className="movie-poster" 
+                            />
+                            <div className="movie-info">
+                                <h2 className="movie-title">{movie.title}</h2>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </>
+        ) : (
+            <p>No movies found...</p>
+        )}
+    </div>
+</div>
+
     );
 }
 
 export default ActorMovies;
+

@@ -47,6 +47,7 @@ body{
 }
 
 .movie-item {
+  max-height: 450px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 5px 5px 5px #ffc107;
@@ -495,4 +496,104 @@ button {
 
 button:hover {
   background-color: #ffaa00;
+}
+
+
+
+
+
+
+
+
+
+/* Actor Profile */
+.actor-profile {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.actor-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+.actor-profile img {
+  align-content: center;
+  border-radius: 10px;
+  max-width: 185px;
+  height: auto;
+  margin-bottom: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bio {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* Known For Section */
+h2 {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-top: 20px;
+}
+
+/* Movie List */
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+
+.actor-info{
+  max-height: 350px;
+  width: 200px;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+}
+
+.movie-item {
+  width: 200px;
+  background-color: #222;
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+}
+
+.movie-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.3);
+}
+
+.movie-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.movie-item img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.movie-item h3 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #ffcc00;
 }
