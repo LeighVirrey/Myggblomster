@@ -111,13 +111,13 @@ const MovieList = () => {
                                     searchResults.map(item => (
                                         <li key={item.id} className="movie-item" onClick={() => redirectDetails(item.id, item.media_type)}>
                                             <img
-                                                src={item.profile_path ? `https://image.tmdb.org/t/p/w185/${item.profile_path}` : item.poster_path ? `https://image.tmdb.org/t/p/w185/${item.poster_path}` : 'https://via.placeholder.com/185'}
+                                                src={item.profile_path ? `https://image.tmdb.org/t/p/w185/${item.profile_path}` : item.poster_path ? `https://image.tmdb.org/t/p/w185/${item.poster_path}` : 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/800px-Placeholder_view_vector.svg.png'}
                                                 alt={item.title || item.name}
                                                 className="movie-poster"
                                             />
                                             <div className="movie-info">
                                                 <h2 className="movie-title">{item.title || item.name}</h2>
-                                                <p className="movie-overview">{item.overview}</p>
+                                                <p className="movie-overview">{item.overview ? item.overview : 'no overview found.'}</p>
                                             </div>
                                         </li>
                                     ))
